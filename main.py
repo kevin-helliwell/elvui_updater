@@ -13,11 +13,12 @@ download_dir = "C:/Users/kbh78/Downloads"
 elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
 elvui_files = requests.get(elvui_source_url)
 
-# Creates timestamp(s) on zip for organizational purposes (backups, versions, etc.)
+# Initializes today's date for next code block
 today = date.today()
 date_format = today.strftime("%Y-%m-%d")
 
 # Writes zip file to local downloads folder
+# Creates timestamp(s) on zip for organizational purposes (backups, versions, etc.)
 elvui_main = f"{download_dir}/ElvUI-main"
 with open(f"{elvui_main} {date_format}.zip", "wb") as file:
     file.write(elvui_files.content)
@@ -30,15 +31,19 @@ archive_format = "zip"
 shutil.unpack_archive(file_name, download_dir, archive_format)
 
 # List of directory names to check for and move
-elvui_dir_list = ["/ElvUI", "/ElvUI_OptionsUI"]
+elvui_dir_list = ["ElvUI", "ElvUI_OptionsUI"]
 
-# for i in range(len(elvui_dir_list)):
+# Generates directory paths and checks if they exist already
 for i, value in enumerate(elvui_dir_list):
     
-    old_path = f"{addon_dir}{elvui_dir_list[i]}_OLD"
-    current_path = f"{addon_dir}{elvui_dir_list[i]}"
-    
+    # Checks if any old version of elvui exists in game/addon directory
+    # (Checks if this program has been run before)
+    old_path = os.path.join(addon_dir, f"{elvui_dir_list[i]}_OLD")
     old_path_exists = os.path.exists(old_path)
+    
+    # Checks if current version of elvui exists in game/addon directory
+    # (If no current version exists, then we don't have to make room for it in game/addon directory! :D)
+    current_path = os.path.join(addon_dir, elvui_dir_list[i])
     current_path_exists = os.path.exists(current_path)
 
 # Checks if backup folders exist from previous updates
@@ -50,7 +55,7 @@ for i, value in enumerate(elvui_dir_list):
         os.rename(current_path, old_path)
 
 # Moves files from unzipped ElvUI folder in downloads directory to game/addon directory
-    new_path = f"{elvui_main}{elvui_dir_list[i]}"
+    new_path = os.path.join(elvui_main, elvui_dir_list[i])
     shutil.move(new_path, addon_dir)
 
 # Removes empty unzipped ElvUI folder in downloads directory
@@ -63,6 +68,11 @@ print(f"Completed in {round((end-start), 2)} seconds.")
 #------------------------------------------------------------------------------------------------------------------------
 
 # OLDER VERSIONS OF CODE FROM VARIOUS SECTIONS (DISREGARD)
+
+# for i in range(len(elvui_dir_list)):
+# old_path = f"{addon_dir}{elvui_dir_list[i]}_OLD"
+# current_path = f"{addon_dir}{elvui_dir_list[i]}"
+# new_path = f"{elvui_main}{elvui_dir_list[i]}"
 
 # OLD SLOWER WAY
 # if(os.path.exists(f"{addon_dir}/ElvUI_OLD")):
