@@ -49,7 +49,7 @@ for i, value in enumerate(elvui_dir_list):
     if(current_path_exists):
         os.rename(current_path, old_path)
 
-# Moves files from unzipped ElvUI folder in downloads dir to game/addon directory
+# Moves files from unzipped ElvUI folder in downloads directory to game/addon directory
     new_path = f"{elvui_main}{elvui_dir_list[i]}"
     shutil.move(new_path, addon_dir)
 
