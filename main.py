@@ -1,13 +1,20 @@
+# Dependencies
 import requests
 import os.path
 import shutil
 from datetime import date
 import time
 
-start = time.time()
+#------------------------------------------------------------------------------------------------------------------------
 
+# Destination directory for new files to go
 addon_dir = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons"
+
+# Source directory for downloaded files 
 download_dir = "C:/Users/kbh78/Downloads"
+
+# Starts timer
+start = time.time()
 
 # Gets zip file from main ElvUI github repo
 elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
@@ -24,7 +31,7 @@ with open(f"{elvui_main} {date_format}.zip", "wb") as file:
     file.write(elvui_files.content)
 
 # Specifies parameters for unzipping file
-file_name = f"{download_dir}/ElvUI-main {date_format}.zip"
+file_name = f"{elvui_main} {date_format}.zip"
 archive_format = "zip"
 
 # Unzips file
@@ -34,7 +41,7 @@ shutil.unpack_archive(file_name, download_dir, archive_format)
 elvui_dir_list = ["ElvUI", "ElvUI_OptionsUI"]
 
 # Generates directory paths and checks if they exist already
-for i, value in enumerate(elvui_dir_list):
+for i, _ in enumerate(elvui_dir_list):
     
     # Checks if any old version of elvui exists in game/addon directory
     # (Checks if this program has been run before)
