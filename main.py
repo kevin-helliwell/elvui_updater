@@ -32,24 +32,33 @@ archive_format = "zip"
 # Unzips file
 shutil.unpack_archive(file_name, download_dir, archive_format)
 
+# List of dir names to check for and move
 elvui_dir_list = ["/ElvUI", "/ElvUI_OptionsUI"]
 
 # for i in range(len(elvui_dir_list)):
 for i, value in enumerate(elvui_dir_list):
     
+    old_path = f"{addon_dir}{elvui_dir_list[i]}_OLD"
+    current_path = f"{addon_dir}{elvui_dir_list[i]}"
+    
+    old_path_exists = os.path.exists(old_path)
+    current_path_exists = os.path.exists(current_path)
+
 # Checks if backup folders exist from previous updates
-    if(os.path.exists(f"{addon_dir}{elvui_dir_list[i]}_OLD")):
-        shutil.rmtree(f"{addon_dir}{elvui_dir_list[i]}_OLD")
+    if(old_path_exists):
+        shutil.rmtree(old_path)
         
 # Checks if active folders exist, and renames them as a form of backup to make way for updated versions
-    if(os.path.exists(f"{addon_dir}{elvui_dir_list[i]}")):
-        os.rename(f"{addon_dir}{elvui_dir_list[i]}", f"{addon_dir}{elvui_dir_list[i]}_OLD")
+    if(current_path_exists):
+        os.rename(current_path, old_path)
 
 # Moves files from unzipped ElvUI folder to game/addon directory
-    shutil.move(f"{download_dir}/ElvUI-main{elvui_dir_list[i]}", f"{addon_dir}")
+    new_path = f"{download_dir}/ElvUI-main{elvui_dir_list[i]}"
+    shutil.move(new_path, addon_dir)
 
 # Removes empty unzipped ElvUI folder
-shutil.rmtree(f"{download_dir}/ElvUI-main")
+main_path = f"{download_dir}/ElvUI-main"
+shutil.rmtree(main_path)
 
 # End of Program
 end = time.time()
