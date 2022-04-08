@@ -38,7 +38,7 @@ archive_format = "zip"
 shutil.unpack_archive(file_name, download_dir, archive_format)
 
 # List of directory names to check for and move
-elvui_dir_list = ["ElvUI", "ElvUI_OptionsUI"]
+elvui_dir_list = os.listdir(elvui_main)
 
 # Generates directory paths and checks if they exist already
 for i, _ in enumerate(elvui_dir_list):
@@ -100,3 +100,5 @@ print(f"Completed in {round((end-start), 2)} seconds.")
 # Test 1
 # if(type(addon_dir)!=str or type(download_dir)!=str or type(elvui_source_url)!=str):
 #     exit()
+
+# # elvui_dir_list = ["ElvUI", "ElvUI_OptionsUI"]
