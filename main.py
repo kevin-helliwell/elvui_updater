@@ -38,15 +38,15 @@ elvui_dir_list = ["/ElvUI", "/ElvUI_OptionsUI"]
 for i, value in enumerate(elvui_dir_list):
     
 # Checks if backup folders exist from previous updates
-    if(os.path.exists(f"{addon_dir + elvui_dir_list[i]}"+"_OLD")):
-        shutil.rmtree(f"{addon_dir + elvui_dir_list[i]}"+"_OLD")
+    if(os.path.exists(f"{addon_dir}{elvui_dir_list[i]}_OLD")):
+        shutil.rmtree(f"{addon_dir}{elvui_dir_list[i]}_OLD")
         
 # Checks if active folders exist, and renames them as a form of backup to make way for updated versions
-    if(os.path.exists(f"{addon_dir + elvui_dir_list[i]}")):
-        os.rename(f"{addon_dir + elvui_dir_list[i]}", f"{addon_dir + elvui_dir_list[i]}"+"_OLD")
+    if(os.path.exists(f"{addon_dir}{elvui_dir_list[i]}")):
+        os.rename(f"{addon_dir}{elvui_dir_list[i]}", f"{addon_dir}{elvui_dir_list[i]}_OLD")
 
 # Moves files from unzipped ElvUI folder to game/addon directory
-    shutil.move(f"{download_dir}" + "/ElvUI-main"+ f"{elvui_dir_list[i]}", f"{addon_dir}")
+    shutil.move(f"{download_dir}/ElvUI-main{elvui_dir_list[i]}", f"{addon_dir}")
 
 # Removes empty unzipped ElvUI folder
 shutil.rmtree(f"{download_dir}/ElvUI-main")
