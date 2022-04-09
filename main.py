@@ -2,7 +2,6 @@
 import requests
 import os.path
 import shutil
-from datetime import date
 import time
 import json
 
