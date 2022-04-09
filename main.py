@@ -25,7 +25,8 @@ version_number = parse_json_data.get("commit").get("commit").get("message")
 # Checks if current version already exists
 download_dir_list = os.listdir(download_dir)
 if(download_dir_list.count(f"ElvUI-main {version_number}.zip")>0):
-    exit(f"Current version already exists in {download_dir}")
+    end = time.time()
+    exit(f"Current version already exists in {download_dir} \n "f"Completed in {round((end-start), 2)} seconds")
 
 # Gets zip file from main ElvUI github repo
 elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
@@ -77,7 +78,7 @@ shutil.rmtree(elvui_main)
 
 # End of Program
 end = time.time()
-print(f"Completed in {round((end-start), 2)} seconds.")
+print(f"Completed in {round((end-start), 2)} seconds")
 
 #------------------------------------------------------------------------------------------------------------------------
 

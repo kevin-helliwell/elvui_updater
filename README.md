@@ -14,7 +14,7 @@ What this program does:
 
 (1) Gets current version number of ElvUI from official github repository via API GET request
 
-(2) Checks if zip file of current version exists
+(2) Checks if zip file of current version exists already in downloads directory
 
 (a) If yes, exits program
 
