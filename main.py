@@ -7,6 +7,83 @@ import json
 
 #------------------------------------------------------------------------------------------------------------------------
 
+# Functions
+
+# Gets version number
+def get_version_number():
+    API_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
+    API_data = requests.get(API_url).text
+    parse_json_data = json.loads(API_data)
+    version_number = parse_json_data.get("commit").get("commit").get("message")
+    return version_number
+
+# Gets zip file from main ElvUI github repo
+def get_elvui_source():
+    elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
+    elvui_files = requests.get(elvui_source_url)
+    return elvui_files
+
+# Checks if current version already exists
+def check_local_version():
+    download_dir_list = os.listdir(download_dir)
+    if(download_dir_list.count(f"ElvUI-main {get_version_number()}.zip")>0):
+        end = time.time()
+        exit(f"Current version already exists in {download_dir} \n "f"Completed in {round((end-start), 2)} seconds")
+    return
+
+def manage_paths():
+    # List of directory names to check for and move
+    elvui_dir_list = os.listdir(elvui_main)
+    
+    # Generates directory paths and checks if they exist already
+    for i, _ in enumerate(elvui_dir_list):
+        
+        # Checks if any old version of elvui exists in game/addon directory
+        # Implicitly checks if this program has been run before
+        old_path = os.path.join(addon_dir, f"{elvui_dir_list[i]}_OLD")
+        old_path_exists = os.path.exists(old_path)
+        
+        # Checks if current version of elvui exists in game/addon directory
+        # If no current version exists, then we don't have to make room for it in game/addon directory! :D
+        current_path = os.path.join(addon_dir, elvui_dir_list[i])
+        current_path_exists = os.path.exists(current_path)
+        
+        # Checks if backup folders exist from previous updates
+        if(old_path_exists):
+            shutil.rmtree(old_path)
+        
+        # Moves files from unzipped ElvUI folder in downloads directory to game/addon directory
+        if(current_path_exists):
+            os.rename(current_path, old_path)
+        
+        # Moves files from unzipped ElvUI folder in downloads directory to game/addon directory
+        new_path = os.path.join(elvui_main, elvui_dir_list[i])
+        shutil.move(new_path, addon_dir)
+    
+    # Removes empty unzipped ElvUI folder in downloads directory
+    shutil.rmtree(elvui_main)
+    
+    return
+
+def manage_zip():
+    # Writes zip file to local downloads folder
+    # Appends version number for validation
+    with open(f"{elvui_main} {get_version_number()}.zip", "wb") as file:
+        file.write(get_elvui_source().content)
+
+    # Specifies parameters for unzipping file
+    file_name = f"{elvui_main} {get_version_number()}.zip"
+    archive_format = "zip"
+
+    # Unzips file
+    shutil.unpack_archive(file_name, download_dir, archive_format)
+    
+    return
+
+#------------------------------------------------------------------------------------------------------------------------
+
+# Program
+
 # Destination directory for new files to go
 addon_dir = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons"
 
@@ -16,65 +93,14 @@ download_dir = "C:/Users/kbh78/Downloads"
 # Starts timer
 start = time.time()
 
-# Get version number
-API_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
-API_data = requests.get(API_url).text
-parse_json_data = json.loads(API_data)
-version_number = parse_json_data.get("commit").get("commit").get("message")
-
-# Checks if current version already exists
-download_dir_list = os.listdir(download_dir)
-if(download_dir_list.count(f"ElvUI-main {version_number}.zip")>0):
-    end = time.time()
-    exit(f"Current version already exists in {download_dir} \n "f"Completed in {round((end-start), 2)} seconds")
-
-# Gets zip file from main ElvUI github repo
-elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
-elvui_files = requests.get(elvui_source_url)
+# Checks if current version already exists in downloads directory
+check_local_version()
 
 # Writes zip file to local downloads folder
-# Appends version number for validation
+# Appends version number for validation and unzips file
 elvui_main = f"{download_dir}/ElvUI-main"
-with open(f"{elvui_main} {version_number}.zip", "wb") as file:
-    file.write(elvui_files.content)
-
-# Specifies parameters for unzipping file
-file_name = f"{elvui_main} {version_number}.zip"
-archive_format = "zip"
-
-# Unzips file
-shutil.unpack_archive(file_name, download_dir, archive_format)
-
-# List of directory names to check for and move
-elvui_dir_list = os.listdir(elvui_main)
-
-# Generates directory paths and checks if they exist already
-for i, _ in enumerate(elvui_dir_list):
-    
-    # Checks if any old version of elvui exists in game/addon directory
-    # (Checks if this program has been run before)
-    old_path = os.path.join(addon_dir, f"{elvui_dir_list[i]}_OLD")
-    old_path_exists = os.path.exists(old_path)
-    
-    # Checks if current version of elvui exists in game/addon directory
-    # (If no current version exists, then we don't have to make room for it in game/addon directory! :D)
-    current_path = os.path.join(addon_dir, elvui_dir_list[i])
-    current_path_exists = os.path.exists(current_path)
-
-# Checks if backup folders exist from previous updates
-    if(old_path_exists):
-        shutil.rmtree(old_path)
-        
-# Checks if active folders exist, and renames them as a form of backup to make way for updated versions
-    if(current_path_exists):
-        os.rename(current_path, old_path)
-
-# Moves files from unzipped ElvUI folder in downloads directory to game/addon directory
-    new_path = os.path.join(elvui_main, elvui_dir_list[i])
-    shutil.move(new_path, addon_dir)
-
-# Removes empty unzipped ElvUI folder in downloads directory
-shutil.rmtree(elvui_main)
+manage_zip()
+manage_paths()
 
 # End of Program
 end = time.time()
@@ -114,3 +140,54 @@ print(f"Completed in {round((end-start), 2)} seconds")
 # Initializes today's date for next code block
 # today = date.today()
 # date_format = today.strftime("%Y-%m-%d")
+
+# # List of directory names to check for and move
+# elvui_dir_list = os.listdir(elvui_main)
+
+# # Generates directory paths and checks if they exist already
+# for i, _ in enumerate(elvui_dir_list):
+    
+#     # Checks if any old version of elvui exists in game/addon directory
+#     # (Checks if this program has been run before)
+#     old_path = os.path.join(addon_dir, f"{elvui_dir_list[i]}_OLD")
+#     old_path_exists = os.path.exists(old_path)
+    
+#     # Checks if current version of elvui exists in game/addon directory
+#     # (If no current version exists, then we don't have to make room for it in game/addon directory! :D)
+#     current_path = os.path.join(addon_dir, elvui_dir_list[i])
+#     current_path_exists = os.path.exists(current_path)
+
+# # Checks if backup folders exist from previous updates
+#     if(old_path_exists):
+#         shutil.rmtree(old_path)
+        
+# # Checks if active folders exist, and renames them as a form of backup to make way for updated versions
+#     if(current_path_exists):
+#         os.rename(current_path, old_path)
+
+# # Moves files from unzipped ElvUI folder in downloads directory to game/addon directory
+#     new_path = os.path.join(elvui_main, elvui_dir_list[i])
+#     shutil.move(new_path, addon_dir)
+
+# Checks if current version already exists
+# download_dir_list = os.listdir(download_dir)
+# if(download_dir_list.count(f"ElvUI-main {get_version_number()}.zip")>0):
+#     end = time.time()
+#     exit(f"Current version already exists in {download_dir} \n "f"Completed in {round((end-start), 2)} seconds")
+
+# # Gets zip file from main ElvUI github repo
+# elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
+# elvui_files = requests.get(elvui_source_url)
+
+# with open(f"{elvui_main} {get_version_number()}.zip", "wb") as file:
+#     file.write(get_elvui_source().content)
+
+# # Specifies parameters for unzipping file
+# file_name = f"{elvui_main} {get_version_number()}.zip"
+# archive_format = "zip"
+
+# # Unzips file
+# shutil.unpack_archive(file_name, download_dir, archive_format)
+
+# Checks for old and current versions
+# Moves files accordingly and deletes empty unzipped folder
