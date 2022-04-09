@@ -4,6 +4,7 @@ import os.path
 import shutil
 from datetime import date
 import time
+import json
 
 #------------------------------------------------------------------------------------------------------------------------
 
@@ -16,22 +17,29 @@ download_dir = "C:/Users/kbh78/Downloads"
 # Starts timer
 start = time.time()
 
+# Get version number
+API_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
+API_data = requests.get(API_url).text
+parse_json_data = json.loads(API_data)
+version_number = parse_json_data.get("commit").get("commit").get("message")
+
+# Checks if current version already exists
+download_dir_list = os.listdir(download_dir)
+if(download_dir_list.count(f"ElvUI-main {version_number}.zip")>0):
+    exit(f"Current version already exists in {download_dir}")
+
 # Gets zip file from main ElvUI github repo
 elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
 elvui_files = requests.get(elvui_source_url)
 
-# Initializes today's date for next code block
-today = date.today()
-date_format = today.strftime("%Y-%m-%d")
-
 # Writes zip file to local downloads folder
-# Creates timestamp(s) on zip for organizational purposes (backups, versions, etc.)
+# Appends version number for validation
 elvui_main = f"{download_dir}/ElvUI-main"
-with open(f"{elvui_main} {date_format}.zip", "wb") as file:
+with open(f"{elvui_main} {version_number}.zip", "wb") as file:
     file.write(elvui_files.content)
 
 # Specifies parameters for unzipping file
-file_name = f"{elvui_main} {date_format}.zip"
+file_name = f"{elvui_main} {version_number}.zip"
 archive_format = "zip"
 
 # Unzips file
@@ -102,3 +110,7 @@ print(f"Completed in {round((end-start), 2)} seconds.")
 #     exit()
 
 # # elvui_dir_list = ["ElvUI", "ElvUI_OptionsUI"]
+
+# Initializes today's date for next code block
+# today = date.today()
+# date_format = today.strftime("%Y-%m-%d")

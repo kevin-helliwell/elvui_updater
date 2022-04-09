@@ -12,13 +12,19 @@ What this program requires to function:
 
 What this program does:
 
-(1) Downloads latest version of ElvUI from official github repository as a zip file to downloads directory
+(1) Gets current version number of ElvUI from official github repository via API GET request
 
-(2) Adds timestamp to zip file
+(2) Checks if zip file of current version exists
 
-(3) Unzips file, returns folder with files in it
+(a) If yes, exits program
 
-(4) Looks inside folder:
+(3) Downloads latest version of ElvUI from official github repository as a zip file to downloads directory
+
+(4) Adds timestamp to zip file
+
+(5) Unzips file, returns folder with files in it
+
+(6) Looks inside folder:
 
 (a) Checks if matching files with \_OLD suffix exist already in addon directory:
 
@@ -30,6 +36,6 @@ If true, deletes files with \_OLD suffix
 
 If true, adds OLD suffix to file names in addon directory
 
-(5) Moves files from folder to addon directory
+(7) Moves files from folder to addon directory
 
-(6) Deletes folder
+(8) Deletes folder
