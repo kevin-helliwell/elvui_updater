@@ -29,7 +29,7 @@ def check_local_version(api_url, download_dir):
     version_number = get_version_number(api_url)
     if(download_dir_list.count(f"{zip_file_name} {version_number}.zip")>0):
         end = time.time()
-        exit(f"Current version already exists in {download_dir} \n "f"Completed in {round((end-start), 2)} seconds")
+        exit(f"Current version already exists in {download_dir}\n"f"Completed in {round((end-start), 2)} seconds")
     return
 
 # Gets source zip file data from an API request before being written to a file in another function
