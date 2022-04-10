@@ -123,6 +123,7 @@ check_local_version(api_url, download_dir)
 # Writes zip file to local downloads folder, appends version number for validation, and unzips file
 manage_zip(api_url, source_url, download_dir)
 
+# Deletes folders with "_old" suffix and renames current ones with "_old" suffix
 # Moves files from unzipped folder to game/addons directory and deletes unzipped folder
 manage_paths(api_url, addon_dir, download_dir)
 
