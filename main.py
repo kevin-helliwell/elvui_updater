@@ -120,8 +120,6 @@ download_dir = config_dict.get("download_dir")
 
 # Where elvui API data is located
 api_url = config_dict.get("api_url")
-url_split_list = api_url.rsplit("/")
-zip_file_name = f"{url_split_list[-3]}-{url_split_list[-1]}"
 
 # Where elvui zip file is located
 source_url = config_dict.get("source_url")
@@ -241,3 +239,6 @@ print(f"Completed in {round((end-start), 2)} seconds")
 # download_dir = "C:/Users/kbh78/Downloads"
 # api_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
 # source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
+
+# url_split_list = api_url.rsplit("/")
+# zip_file_name = f"{url_split_list[-3]}-{url_split_list[-1]}"
