@@ -105,16 +105,14 @@ def manage_paths(api_url, addon_dir, download_dir):
 
 # Program
 
-config_keys = ["addon_dir", "download_dir", "api_url", "source_url"]
+# Sets necessary parameters for program to run
 config_values = ["C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"]
-
-config_dict = dict(zip(config_keys, config_values))
 
 # addon_dir: Destination directory for new files to go
 # download_dir: Source directory for downloaded files
 # api_url: Where elvui API data is located
 # source_url: Where elvui zip file is located
-addon_dir, download_dir, api_url, source_url = config_dict.values()
+addon_dir, download_dir, api_url, source_url = config_values
 
 # Starts timer
 start = time.time()
@@ -248,3 +246,6 @@ print(f"Completed in {round((end-start), 2)} seconds")
 
 # Where elvui zip file is located
 # source_url = config_dict.get("source_url")
+
+# config_dict = dict(zip(config_keys, config_values))
+# addon_dir, download_dir, api_url, source_url = config_dict.values()
