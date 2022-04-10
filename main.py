@@ -101,30 +101,32 @@ def manage_paths(api_url, addon_dir, download_dir):
 
 # Program
 
+config_dict = {"addon_dir":"C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "download_dir":"C:/Users/kbh78/Downloads", "api_url": "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "source_url": "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"}
+
 # Destination directory for new files to go
-addon_dir = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons"
+addon_dir = config_dict.get("addon_dir")
 
 # Source directory for downloaded files 
-download_dir = "C:/Users/kbh78/Downloads"
+download_dir = config_dict.get("download_dir")
 
 # Where elvui API data is located
-elvui_api_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
-url_split_list = elvui_api_url.rsplit("/")
+api_url = config_dict.get("api_url")
+url_split_list = api_url.rsplit("/")
 zip_file_name = f"{url_split_list[-3]}-{url_split_list[-1]}"
 
 # Where elvui zip file is located
-elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
+source_url = config_dict.get("source_url")
 
 # Starts timer
 start = time.time()
 
 # Checks if current version already exists in downloads directory
-check_local_version(elvui_api_url, download_dir)
+check_local_version(api_url, download_dir)
 
 # Writes zip file to local downloads folder
 # Appends version number for validation and unzips file
-manage_zip(elvui_api_url, elvui_source_url, download_dir)
-manage_paths(elvui_api_url, addon_dir, download_dir)
+manage_zip(api_url, source_url, download_dir)
+manage_paths(api_url, addon_dir, download_dir)
 
 # End of Program
 end = time.time()
@@ -156,7 +158,7 @@ print(f"Completed in {round((end-start), 2)} seconds")
 # shutil.move(f"{download_dir}/ElvUI-main/ElvUI_OptionsUI", f"{addon_dir}")
 
 # Test 1
-# if(type(addon_dir)!=str or type(download_dir)!=str or type(elvui_source_url)!=str):
+# if(type(addon_dir)!=str or type(download_dir)!=str or type(source_url)!=str):
 #     exit()
 
 # # zip_dir_list = ["ElvUI", "ElvUI_OptionsUI"]
@@ -200,8 +202,8 @@ print(f"Completed in {round((end-start), 2)} seconds")
 #     exit(f"Current version already exists in {download_dir} \n "f"Completed in {round((end-start), 2)} seconds")
 
 # # Gets zip file from main ElvUI github repo
-# elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
-# elvui_files = requests.get(elvui_source_url)
+# source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
+# elvui_files = requests.get(source_url)
 
 # with open(f"{zip_file_path} {get_version_number()}.zip", "wb") as file:
 #     file.write(get_source_zip_data().content)
@@ -218,10 +220,15 @@ print(f"Completed in {round((end-start), 2)} seconds")
 
 # Gets zip file from main ElvUI github repo
 # def get_source_zip_data():
-#     elvui_source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
-#     elvui_files = requests.get(elvui_source_url)
+#     source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
+#     elvui_files = requests.get(source_url)
 #     return elvui_files
 
 # zip_file_path = f"{download_dir}/{zip_file_name}"
 
 # API_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
+
+# addon_dir = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons"
+# download_dir = "C:/Users/kbh78/Downloads"
+# api_url = "https://api.github.com/repos/tukui-org/ElvUI/branches/main"
+# source_url = "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
