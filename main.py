@@ -110,8 +110,6 @@ config_values = ["C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Ad
 
 config_dict = dict(zip(config_keys, config_values))
 
-# config_dict = {"addon_dir":"C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "download_dir":"C:/Users/kbh78/Downloads", "api_url": "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "source_url": "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"}
-
 # Destination directory for new files to go
 addon_dir = config_dict.get("addon_dir")
 
@@ -242,3 +240,5 @@ print(f"Completed in {round((end-start), 2)} seconds")
 
 # url_split_list = api_url.rsplit("/")
 # zip_file_name = f"{url_split_list[-3]}-{url_split_list[-1]}"
+
+# config_dict = {"addon_dir":"C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "download_dir":"C:/Users/kbh78/Downloads", "api_url": "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "source_url": "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"}
