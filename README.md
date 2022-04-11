@@ -1,6 +1,6 @@
 # elvui_updater
 
-Updates ElvUI and ElvUI_OptionsUI folders using latest files from Tukui repo (https://github.com/tukui-org/ElvUI/tree/main).
+Updates ElvUI and ElvUI_OptionsUI folders in local game/addons directory using latest files from Tukui repo (https://github.com/tukui-org/ElvUI/tree/main).
 
 What this requires:
 
