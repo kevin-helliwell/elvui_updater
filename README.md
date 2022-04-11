@@ -2,7 +2,7 @@
 
 Updates ElvUI and ElvUI_OptionsUI folders using latest files from Tukui repo (https://github.com/tukui-org/ElvUI/tree/main).
 
-What this program requires to function:
+What this requires:
 
 - An internet connection (to fetch latest version)
 
@@ -10,7 +10,7 @@ What this program requires to function:
 
 - A downloads or other directory (to store zip file before program can unzip and move files to addon directory)
 
-What this program does:
+How it works:
 
 - Gets current version number of ElvUI from official github repository via API GET request
 
@@ -24,15 +24,15 @@ What this program does:
 
 - Unzips file, returns folder with files in it
 
-- Looks inside folder:
+- Looks inside folder
 
-- Checks if matching files with \_OLD suffix exist already in addon directory:
+- Checks if matching files with \_OLD suffix exist already in addon directory
 
 - If true, deletes files with \_OLD suffix
 
 **NOTE: This basically checks if this program has been run already so that it doesn't block itself in the next step.**
 
-- Checks if matching files exist already in addon directory:
+- Checks if matching files exist already in addon directory
 
 - If true, adds OLD suffix to file names in addon directory
 
