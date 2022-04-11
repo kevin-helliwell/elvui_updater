@@ -38,7 +38,7 @@ class AddonManager:
         if(download_dir_list.count(f"{zip_file_name} {version_number}.zip")>0):
             end = time.time()
             exit(f"Current version already exists in {self.download_dir}\n"f"Completed in {round((end-start), 2)} seconds")
-        return
+        return self
 
     # Gets source zip file data from an API request before being written to a file in another function
     def get_source_zip_data(self):
@@ -67,7 +67,7 @@ class AddonManager:
         # Unzips file
         shutil.unpack_archive(file_name, self.download_dir, archive_format)
         
-        return
+        return self
 
     # Manages file paths in downloads and game/addons directories based on API data
     def manage_paths(self):
@@ -103,7 +103,7 @@ class AddonManager:
         # Removes empty unzipped ElvUI folder in downloads directory
         shutil.rmtree(zip_file_path)
         
-        return
+        return self
 
 #------------------------------------------------------------------------------------------------------------------------
 
@@ -124,14 +124,10 @@ elvui_manager = AddonManager(addon_dir, download_dir, api_url, source_url)
 start = time.time()
 
 # Checks if current version already exists in downloads directory
-elvui_manager.check_local_version()
-
 # Writes zip file to local downloads folder, appends version number for validation, and unzips file
-elvui_manager.manage_zip()
-
-# Deletes folders with "_old" suffix and renames current ones with "_old" suffix
+# Deletes folders with "_old" suffix and renames current folders with "_old" suffix if they exist
 # Moves files from unzipped folder to game/addons directory and deletes unzipped folder
-elvui_manager.manage_paths()
+elvui_manager.check_local_version().manage_zip().manage_paths()
 
 # End of Program
 end = time.time()
@@ -257,3 +253,6 @@ print(f"Completed in {round((end-start), 2)} seconds")
 
 # config_dict = dict(zip(config_keys, config_values))
 # addon_dir, download_dir, api_url, source_url = config_dict.values()
+
+# elvui_manager.manage_zip()
+# elvui_manager.manage_paths()
