@@ -9,6 +9,7 @@ import json
 
 class AddonManager:
     
+    # Constructor logic
     def __init__(self, addon_dir, download_dir, api_url, source_url):
         self.addon_dir = addon_dir
         self.download_dir = download_dir
@@ -109,30 +110,37 @@ class AddonManager:
 
 # Program
 
-# Sets necessary parameters for program to run
-config_values = ("C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip")
+def main():
 
-# addon_dir: Destination directory for new files to go
-# download_dir: Source directory for downloaded files
-# api_url: Where elvui API data is located
-# source_url: Where elvui zip file is located
-addon_dir, download_dir, api_url, source_url = config_values
+    # Sets necessary parameters for program to run
+    config_values = ("C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip")
 
-elvui_manager = AddonManager(addon_dir, download_dir, api_url, source_url)
+    # addon_dir: Destination directory for new files to go
+    # download_dir: Source directory for downloaded files
+    # api_url: Where elvui API data is located
+    # source_url: Where elvui zip file is located
+    addon_dir, download_dir, api_url, source_url = config_values
+    
+    # Creates elvui manager with class constructor
+    elvui_manager = AddonManager(addon_dir, download_dir, api_url, source_url)
 
-# Starts timer
-start = time.time()
+    # Checks if current version already exists in downloads directory
+    # Writes zip file to local downloads folder, appends version number for validation, and unzips file
+    # Deletes folders with "_old" suffix and renames current folders with "_old" suffix if they exist
+    # Moves files from unzipped folder to game/addons directory and deletes unzipped folder
+    elvui_manager.check_local_version().manage_zip().manage_paths()
 
-# Checks if current version already exists in downloads directory
-# Writes zip file to local downloads folder, appends version number for validation, and unzips file
-# Deletes folders with "_old" suffix and renames current folders with "_old" suffix if they exist
-# Moves files from unzipped folder to game/addons directory and deletes unzipped folder
-elvui_manager.check_local_version().manage_zip().manage_paths()
-
-# End of Program
-end = time.time()
-print(f"Completed in {round((end-start), 2)} seconds")
-
+if __name__ == "__main__":
+    
+    # Starts timer
+    start = time.time()
+    
+    # Runs program
+    main()
+    
+    # End of Program
+    end = time.time()
+    print(f"Completed in {round((end-start), 2)} seconds")
 #------------------------------------------------------------------------------------------------------------------------
 
 # OLDER VERSIONS OF CODE FROM VARIOUS SECTIONS (DISREGARD)
@@ -256,3 +264,10 @@ print(f"Completed in {round((end-start), 2)} seconds")
 
 # elvui_manager.manage_zip()
 # elvui_manager.manage_paths()
+
+# Starts timer
+# start = time.time()
+
+# End of Program
+# end = time.time()
+# print(f"Completed in {round((end-start), 2)} seconds")
