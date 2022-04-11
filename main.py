@@ -106,7 +106,7 @@ def manage_paths(api_url, addon_dir, download_dir):
 # Program
 
 # Sets necessary parameters for program to run
-config_values = ["C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"]
+config_values = ("C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip")
 
 # addon_dir: Destination directory for new files to go
 # download_dir: Source directory for downloaded files
