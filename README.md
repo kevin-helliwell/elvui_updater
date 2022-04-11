@@ -30,7 +30,7 @@ How it works:
 
 - If true, deletes files with \_OLD suffix
 
-**NOTE: This checks if this program has been run already so that it doesn't block itself in the next step.**
+**This checks if this program has been run already so that it doesn't block itself in the next step.**
 
 - Checks if matching files exist already in addon directory
 
