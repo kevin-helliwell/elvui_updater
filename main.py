@@ -5,10 +5,6 @@ import shutil
 import time
 import json
 
-# NOTE: May fork this into a general game addon manager
-# Just need to figure out logistics for other addons rather than specifically ElvUI
-# How to retrieve config_dict info from sources other than github, etc.
-
 #------------------------------------------------------------------------------------------------------------------------
 
 # Functions
