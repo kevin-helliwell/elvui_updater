@@ -5,8 +5,6 @@ import shutil
 import time
 import json
 
-#------------------------------------------------------------------------------------------------------------------------
-
 class AddonManager:
     
     # Constructor logic
@@ -106,8 +104,6 @@ class AddonManager:
         
         return self
 
-#------------------------------------------------------------------------------------------------------------------------
-
 # Program
 
 def main():
@@ -141,7 +137,6 @@ if __name__ == "__main__":
     # End of Program
     end = time.time()
     print(f"Completed in {round((end-start), 2)} seconds")
-#------------------------------------------------------------------------------------------------------------------------
 
 # OLDER VERSIONS OF CODE FROM VARIOUS SECTIONS (DISREGARD)
 
