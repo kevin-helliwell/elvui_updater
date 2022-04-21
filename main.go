@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -16,7 +17,7 @@ const addonDir, downloadDir, apiUrl, sourceUrl string = "C:/Program Files (x86)/
 func main() {
 	fmt.Println("Hello, World!")
 	getVersionNumber()
-	// getZipFileName()
+	getZipFileName()
 }
 
 type Todo struct {
@@ -49,11 +50,10 @@ fmt.Printf("Version number %v Completed in %v",message, end.Sub(start))
 return message
 }
 
-func getZipFileName() {
-	
-	
-	
-	
+func getZipFileName() (string) {
+	urlSplitList := strings.Split(apiUrl,"/")
+	zipFileName := urlSplitList[5]+"-"+urlSplitList[7]
+	return zipFileName
 }
 
 func checkLocalVersion() {}
