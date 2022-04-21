@@ -16,6 +16,7 @@ const addonDir, downloadDir, apiUrl, sourceUrl string = "C:/Program Files (x86)/
 func main() {
 	fmt.Println("Hello, World!")
 	getVersionNumber()
+	// getZipFileName()
 }
 
 type Todo struct {
@@ -27,33 +28,33 @@ type Todo struct {
 	}	
 }
 
-
 func getVersionNumber() (string) {
-	start := time.Now()
-	resp, err := http.Get("https://api.github.com/repos/tukui-org/ElvUI/branches/main")
+start := time.Now()
+resp, err := http.Get(apiUrl)
 if err != nil {
 	log.Fatalln(err)
 }
-
 defer resp.Body.Close()
 bodyBytes, _ := ioutil.ReadAll(resp.Body)
-
 // Convert response body to Todo struct
 // var todoStruct Todo
 todoStruct := Todo{}
-
 jsonErr := json.Unmarshal(bodyBytes, &todoStruct)
 if jsonErr != nil {
 	log.Fatal(jsonErr)
   }
 message := todoStruct.Commit.Commit.Message
 end := time.Now()
-fmt.Printf("Completed in %v", end.Sub(start))
+fmt.Printf("Version number %v Completed in %v",message, end.Sub(start))
 return message
-
 }
 
-func getZipFileName() {}
+func getZipFileName() {
+	
+	
+	
+	
+}
 
 func checkLocalVersion() {}
 
