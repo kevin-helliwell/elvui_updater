@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -15,9 +16,10 @@ import (
 const addonDir, downloadDir, apiUrl, sourceUrl string = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
 
 func main() {
-	fmt.Println("Hello, World!")
+	// fmt.Println("Hello, World!")
 	getVersionNumber()
 	getZipFileName()
+	checkLocalVersion()
 }
 
 type Todo struct {
@@ -46,7 +48,8 @@ if jsonErr != nil {
   }
 message := todoStruct.Commit.Commit.Message
 end := time.Now()
-fmt.Printf("Version number %v Completed in %v",message, end.Sub(start))
+// fmt.Printf("Version number %v Completed in %v\n",message, end.Sub(start))
+end.Sub(start)
 return message
 }
 
@@ -56,7 +59,20 @@ func getZipFileName() (string) {
 	return zipFileName
 }
 
-func checkLocalVersion() {}
+func checkLocalVersion() {
+	zipFileName := getZipFileName()
+	versionNumber := getVersionNumber()
+	downloadDirList,err := os.ReadDir(downloadDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, entry := range downloadDirList {
+		if entry.Name() == zipFileName+ " "+versionNumber+".zip" {
+			fmt.Println("Current version already exists in", downloadDir)
+		}
+	}
+	return
+}
 
 func getSourceZipData() {}
 
