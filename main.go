@@ -16,10 +16,13 @@ import (
 const addonDir, downloadDir, apiUrl, sourceUrl string = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
 
 func main() {
+	start := time.Now()
 	// fmt.Println("Hello, World!")
 	getVersionNumber()
 	getZipFileName()
 	checkLocalVersion()
+	end := time.Now()
+	fmt.Printf("Completed in %v\n", end.Sub(start))
 }
 
 type Todo struct {
@@ -32,7 +35,6 @@ type Todo struct {
 }
 
 func getVersionNumber() (string) {
-start := time.Now()
 resp, err := http.Get(apiUrl)
 if err != nil {
 	log.Fatalln(err)
@@ -47,9 +49,6 @@ if jsonErr != nil {
 	log.Fatal(jsonErr)
   }
 message := todoStruct.Commit.Commit.Message
-end := time.Now()
-// fmt.Printf("Version number %v Completed in %v\n",message, end.Sub(start))
-end.Sub(start)
 return message
 }
 
