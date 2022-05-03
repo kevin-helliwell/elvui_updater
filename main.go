@@ -12,7 +12,6 @@ import (
 )
 
 // Sets necessary parameters for program to run
-
 const addonDir, downloadDir, apiUrl, sourceUrl string = "C:/Program Files (x86)/World of Warcraft/_retail_/Interface/Addons", "C:/Users/kbh78/Downloads", "https://api.github.com/repos/tukui-org/ElvUI/branches/main", "https://github.com/tukui-org/ElvUI/archive/refs/heads/main.zip"
 
 func main() {
