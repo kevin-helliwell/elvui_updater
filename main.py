@@ -105,7 +105,6 @@ class AddonManager:
         return self
 
 # Program
-
 def main():
 
     # Sets necessary parameters for program to run
