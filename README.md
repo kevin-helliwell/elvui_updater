@@ -12,7 +12,7 @@ What this requires:
 
 How it works:
 
-- Gets current version number of ElvUI from official github repository via API GET request
+- Gets current version number of ElvUI from official github repository via GET request
 
 - Checks if zip file of current version exists already in downloads directory
 
