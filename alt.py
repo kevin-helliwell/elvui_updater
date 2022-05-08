@@ -5,8 +5,6 @@ import shutil
 import time
 from datetime import date
 
-#------------------------------------------------------------------------------------------------------------------------
-
 class AddonManager:
     
     # Constructor logic
