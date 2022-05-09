@@ -121,6 +121,7 @@ def main():
 
     # Checks if current version already exists in downloads directory
     # Writes zip file to local downloads folder, appends version number for validation, and unzips file
+    
     # Deletes folders with "_old" suffix and renames current folders with "_old" suffix if they exist
     # Moves files from unzipped folder to game/addons directory and deletes unzipped folder
     elvui_manager.check_local_version().manage_zip().manage_paths()
